@@ -28,8 +28,17 @@ export class UsersController {
   }
 
   @Get(':id/profile')
-  findProfile(@Param('id') id: string) {
-    return this.usersService.findProfile(id);
+  async findProfile(@Param('id') id: string) {
+    const user: any = await this.usersService.findProfile(id);
+    const balance = user.wallets.reduce((prev, curr) => {
+      return prev + curr;
+    }, 0);
+    const walletSummaries = user.wallets.map((wallet) => ({
+      name: wallet.name,
+      balance: wallet.balance,
+      id: wallet.id,
+    }));
+    return { ...user, balance, wallets: walletSummaries };
   }
 
   @Get(':id')

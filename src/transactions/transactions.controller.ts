@@ -8,6 +8,7 @@ import {
   Delete,
   HttpStatus,
 } from '@nestjs/common';
+
 import { TransactionsService } from './transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
@@ -15,13 +16,13 @@ import { ApiTags } from '@nestjs/swagger';
 import { WalletsService } from 'src/wallets/wallets.service';
 import { HttpException } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
+
 @Controller('transactions')
 @ApiTags('transactions')
 export class TransactionsController {
   constructor(
     private readonly transactionsService: TransactionsService,
     private readonly walletService: WalletsService,
-    private readonly usersService: UsersService,
   ) {}
 
   @Post()
