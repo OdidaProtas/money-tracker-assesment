@@ -86,7 +86,8 @@ Endpoint: `http://localhost:3000/transactions`
   }
 
 
-  1. Adding Debit (Expenses)
+
+2. Adding Debit (Expenses)
 
 - Method: `POST`
 - Endpoint: `/`
