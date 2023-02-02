@@ -23,13 +23,21 @@ export class WalletsController {
   }
 
   @Get()
-  findAll() {
-    return this.walletsService.findAll();
+  async findAll() {
+    const wallets = await this.walletsService.findAll();
+    return wallets.map((wallet: any) => {
+      let _wallet = { ...wallet, balance: getBalance(wallet.transactions) };
+      delete _wallet['transactions'];
+      return _wallet;
+    });
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.walletsService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const wallet = await this.walletsService.findOne(id);
+    const balance = getBalance(wallet.transactions);
+    const withBalance = { ...wallet, balance };
+    return withBalance;
   }
 
   @Patch(':id')
@@ -41,4 +49,11 @@ export class WalletsController {
   remove(@Param('id') id: string) {
     return this.walletsService.remove(id);
   }
+}
+
+export function getBalance(transactions = []) {
+  return transactions.reduce((acc, transaction) => {
+    if (transaction.type === 'credit') return acc + transaction.amount;
+    return acc - transaction.amount;
+  }, 0);
 }

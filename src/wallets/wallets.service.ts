@@ -11,7 +11,7 @@ export class WalletsService {
   }
 
   findAll() {
-    return this.prisma.wallet.findMany();
+    return this.prisma.wallet.findMany({ include: { transactions: true } });
   }
 
   findOne(id: string) {

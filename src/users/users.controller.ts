@@ -11,6 +11,7 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { getBalance } from 'src/wallets/wallets.controller';
 
 @Controller('users')
 @ApiTags('users')
@@ -31,11 +32,11 @@ export class UsersController {
   async findProfile(@Param('id') id: string) {
     const user: any = await this.usersService.findProfile(id);
     const balance = user.wallets.reduce((prev, curr) => {
-      return prev + curr;
+      return prev + getBalance(curr.transactions);
     }, 0);
     const walletSummaries = user.wallets.map((wallet) => ({
       name: wallet.name,
-      balance: wallet.balance,
+      balance: getBalance(wallet.transactions),
       id: wallet.id,
     }));
     return { ...user, balance, wallets: walletSummaries };
