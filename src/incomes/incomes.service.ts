@@ -1,26 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { CreateIncomeDto } from './dto/create-income.dto';
 import { UpdateIncomeDto } from './dto/update-income.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class IncomesService {
+  constructor(private prisma: PrismaService) {}
+
   create(createIncomeDto: CreateIncomeDto) {
-    return 'This action adds a new income';
+    return this.prisma.income.create(createIncomeDto);
   }
 
   findAll() {
-    return `This action returns all incomes`;
+    return this.prisma.income.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} income`;
+  findOne(id: string) {
+    return this.prisma.income.findFirst({ where: { id } });
   }
 
-  update(id: number, updateIncomeDto: UpdateIncomeDto) {
-    return `This action updates a #${id} income`;
+  update(id: string, updateIncomeDto: UpdateIncomeDto) {
+    return this.prisma.income.update({ where: { id }, data: updateIncomeDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} income`;
+  remove(id: string) {
+    return this.prisma.income.delete({ where: { id } });
   }
 }
