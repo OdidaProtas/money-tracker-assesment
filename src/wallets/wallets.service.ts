@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class WalletsService {
   constructor(private prisma: PrismaService) {}
   create(createWalletDto: CreateWalletDto) {
-    return this.prisma.wallet.create(createWalletDto);
+    return this.prisma.wallet.create({ data: createWalletDto });
   }
 
   findAll() {
@@ -16,15 +16,20 @@ export class WalletsService {
 
   findOne(id: string) {
     return this.prisma.wallet.findUnique({
-      where: { id },
+      where: { id: String(id) },
     });
   }
 
-  update(id: number, updateWalletDto: UpdateWalletDto) {
-    return `This action updates a #${id} wallet`;
+  update(id: string, updateWalletDto: UpdateWalletDto) {
+    return this.prisma.wallet.update({
+      where: { id },
+      data: updateWalletDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} wallet`;
+  remove(id: string) {
+    return this.prisma.wallet.delete({
+      where: { id },
+    });
   }
 }

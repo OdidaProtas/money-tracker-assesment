@@ -8,7 +8,7 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.prisma.user.create(createUserDto);
+    return this.prisma.user.create({ data: createUserDto });
   }
 
   findAll() {
@@ -19,7 +19,7 @@ export class UsersService {
     return this.prisma.user.findUnique({
       where: { id },
       include: {
-        Wallet: true,
+        wallets: true,
       },
     });
   }
