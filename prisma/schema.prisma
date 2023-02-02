@@ -9,3 +9,34 @@ datasource db {
   provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
+
+model Expense {
+  id       String @id @default(cuid())
+  wallet   Wallet @relation(fields: [walletId], references: [id])
+  walletId String
+}
+
+model Income {
+  id       String @id @default(cuid())
+  wallet   Wallet @relation(fields: [walletId], references: [id])
+  walletId String
+}
+
+model Wallet {
+  id      String    @id @default(cuid())
+  balance Int       @default(0)
+  user    User      @relation(fields: [userId], references: [id])
+  userId  String
+  Expense Expense[]
+  Income  Income[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  usernane  String   @unique
+  firstName String
+  lastName  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Wallet    Wallet[]
+}
