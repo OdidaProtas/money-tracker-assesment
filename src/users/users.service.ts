@@ -18,9 +18,6 @@ export class UsersService {
   findOne(id: string) {
     return this.prisma.user.findUnique({
       where: { id },
-      include: {
-        wallets: true,
-      },
     });
   }
 
@@ -33,5 +30,15 @@ export class UsersService {
 
   remove(id: string) {
     return this.prisma.user.delete({ where: { id } });
+  }
+  findProfile(id: string) {
+    const user = this.prisma.user.findUnique({
+      where: { id },
+      include: { wallets: { include: { transactions: true } } },
+    });
+    if (user) {
+      return user;
+    }
+    return null;
   }
 }
