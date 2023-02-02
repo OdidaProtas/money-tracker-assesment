@@ -3,15 +3,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateWalletDto {
-  @ApiProperty()
-  title: string;
+//   @ApiProperty()
+//   title: string;
 
-  @ApiProperty({ required: false })
-  description?: string;
+//   @ApiProperty({ required: false })
+//   description?: string;
 
-  @ApiProperty()
-  body: string;
+//   @ApiProperty()
+//   body: string;
 
-  @ApiProperty({ required: false, default: false })
-  published?: boolean = false;
+//   @ApiProperty({ required: false, default: false })
+//   published?: boolean = false;
 }
