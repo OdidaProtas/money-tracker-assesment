@@ -20,7 +20,7 @@
 
 ## Installation
 
-On the terminal, clone this repository: `git clone https://gitlab.com/odida.protas/monyetracker-assesment-api.git
+On the terminal, clone this repository: `git clone https://github.com/OdidaProtas/money-tracker-assesment.git
 `
 
 Move to the newly created "monyetracker-assesment-api" : `cd monyetracker-assesment-api `
