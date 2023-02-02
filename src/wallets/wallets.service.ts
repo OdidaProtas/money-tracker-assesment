@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateWalletDto } from './dto/create-wallet.dto';
 import { UpdateWalletDto } from './dto/update-wallet.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class WalletsService {
+  constructor(private prisma: PrismaService) {}
   create(createWalletDto: CreateWalletDto) {
-    return 'This action adds a new wallet';
+    return this.prisma.wallet.create(createWalletDto);
   }
 
   findAll() {
-    return `This action returns all wallets`;
+    return this.prisma.wallet.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} wallet`;
+  findOne(id: string) {
+    return this.prisma.wallet.findUnique({
+      where: { id },
+    });
   }
 
   update(id: number, updateWalletDto: UpdateWalletDto) {
