@@ -27,6 +27,8 @@ Move to the newly created "monyetracker-assesment-api" : `cd monyetracker-assesm
 
 Install Project dependencies: `yarn` or `npm install`
 
+Generate Prisma client: `npx prisma db push`
+
 Run dev server: `yarn start` or `npm run start`
 
 visit Homepage: `http://localhost:3000` : returns "Hello World"
